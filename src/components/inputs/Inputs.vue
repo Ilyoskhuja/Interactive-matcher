@@ -1,7 +1,7 @@
 <template>
 <ul class="list-group list-group-flush">
-  <li class="mt-4" v-for="item in items" :key="item.title">
-  <div class="card">
+  <li class="mt-4" v-for="item in inputs" :key="item.title">
+  <div class="card" @click="findMatch(item)">
     <div class="card-body">
       <h5 style="">{{ item.title }}</h5>
       <p>{{item.artist}}</p>
@@ -22,12 +22,27 @@ ul {
 }
 </style>
 <script>
-import db from "../../assets/sound_recordings_input_report.csv"
 export default {
      data() {
     return{
-      items:db
+      
     }
+  },
+  computed:{
+    inputs() {
+                return this.$store.state.inputs;
+            },
+  },
+  methods:{
+    findMatch(item){
+      const options = {
+   keys: ['artist', 'title','iscr']
+        }
+  
+this.$search(item.artist,this.$store.state.recordings, options).then(results => {
+  this.$store.state.results = results
+})
+}
   },
   filters: {
     formatTime(time) {  

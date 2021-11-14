@@ -1,6 +1,8 @@
 <template>
+<div>
+  <input type="text" v-model="search" @input="findMatch" placeholder="Search title.."/>
 <ul class="list-group list-group-flush">
- <li class="mt-4" v-for="item in items" :key="item.title">
+ <li class="mt-4" v-for="item in recordings" :key="item.title">
   <div class="card">
     <div class="card-body">
       <h5 style="">{{ item.title }}</h5>
@@ -11,15 +13,20 @@
     </div>
   </div>
   </li>
-</ul>  
+</ul>
+</div>  
 </template>
 <script>
-import db from "../../assets/sound_recordings.csv"
 export default {
   data() {
     return{
-      items:db
+     search:''
     }
+  },
+  computed:{
+ recordings() {
+                return this.$store.state.results;
+            },
   },
   mounted() {
  
@@ -40,7 +47,14 @@ export default {
 
   },
   methods: {
-  
+//     findMatch: debounce(function (e) (){
+//       const options : {
+//   keys: ['artist', 'title','iscr']
+//         }
+// this.$search(this.search,this.$store.state.recordings, options).then(results => {
+//   console.log("search result:",results)
+//   this.$store.state.results = results
+// }) }, config.debouncers.default)
   }  
 }
 </script>
