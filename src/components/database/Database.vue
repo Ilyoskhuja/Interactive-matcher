@@ -35,7 +35,7 @@ export default {
       );
     },
   },
-  mounted() {},
+
   filters: {
     formatTime(time) {
       if (time > 0) {
