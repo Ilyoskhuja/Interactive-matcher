@@ -17,7 +17,7 @@ const postInputs = appendId(inputsdata);
 
 export const store = new Vuex.Store({
   state: {
-		// origin
+    // origin
     recordings: postRecordingsData,
 
     // left aside list
@@ -36,6 +36,15 @@ export const store = new Vuex.Store({
           state[key] = payload[key];
         }
       });
+    },
+    S_INPUT(state, payload) {
+      state.selectedInputsItem = payload;
+    },
+    addInput(state) {
+        console.log("state.selectedInputsItem:", state.selectedInputsItem);
+	state.recordings.push(state.selectedInputsItem.item);
+	state.results.push(state.selectedInputsItem.item)
+	console.log("state:",state);    
     },
   },
 });

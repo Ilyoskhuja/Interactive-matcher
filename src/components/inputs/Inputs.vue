@@ -23,7 +23,7 @@ ul {
   height: 80vh;
 }
 .isActive{
-  border:2px solid red ;
+  border:18px solid #e19eae ;
 }
 </style>
 <script>
@@ -40,11 +40,13 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_STATE"]),
+    ...mapMutations(["SET_STATE","S_INPUT"]),
 
     findMatch(item) {
       console.log(item);
       this.activeItem=item;
+     this.S_INPUT({item});
+     console.log("selected+++++:",this.$store.state.selectedInputsItem) 
     //   const options = {
     //     keys: ["artist", "title"],
     //   };
