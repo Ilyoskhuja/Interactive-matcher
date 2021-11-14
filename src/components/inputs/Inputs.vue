@@ -2,7 +2,7 @@
   <ul class="list-group list-group-flush">
     <div>Inputs: {{ inputs.length }}</div>
     <li class="mt-4" v-for="item in inputs" :key="item.id">
-      <div class="card" @click="findMatch(item)">
+      <div class="card " v-bind:class="{isActive:activeItem===item}" @click="findMatch(item)">
         <div class="card-body">
           <h5 style="">{{ item.title }}</h5>
           <p>{{ item.artist }}</p>
@@ -22,12 +22,17 @@ ul {
   overflow-x: hidden;
   height: 80vh;
 }
+.isActive{
+  border:2px solid red ;
+}
 </style>
 <script>
 import { mapMutations } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      activeItem:null
+    };
   },
   computed: {
     inputs() {
@@ -38,26 +43,34 @@ export default {
     ...mapMutations(["SET_STATE"]),
 
     findMatch(item) {
-      // const options = {
-      //   keys: ["artist", "title", "isrc"],
-      // };
-
+      console.log(item);
+      this.activeItem=item;
+    //   const options = {
+    //     keys: ["artist", "title"],
+    //   };
+    //   var t=[]
+    //  this.$search(item.artist, this.$store.state.recordings, options).then(
+    //     (results) => {
+    //       console.log("results:",results)
+    //       t = results;
+    //     }
+    //   );
+   
       console.log("findMatch item", JSON.stringify(item, null, 2));
-      const targetFields = [item.isrc];
-
+      const targetFields =(item.title.toUpperCase()+' '+item.artist.toUpperCase() +(item.isrc?' ' + item.isrc?.toUpperCase():'')).split(' ');
+      //[(item.isrc||'').toString().toUpperCase(),item.title.toUpperCase(),item.artist.toUpperCase()];
+      
       const t = this.$store.state.recordings.filter((elem) => {
-        return targetFields.includes(elem.isrc);
+         const ele=(elem.title.toUpperCase()+' '+elem.artist.toUpperCase() +' '+elem.isrc?.toUpperCase()).split(' ');
+       
+         return ele.filter(field=> targetFields.includes(field)).length>0;
+          // (targetFields.includes(elem.title.toUpperCase()) ||  targetFields.includes(elem.artist.toUpperCase()) || (elem.isrc && targetFields.includes(elem.isrc.toString().toUpperCase())));
+      //  return  targetFields.includes(elem.artist)  ;
       });
 
       console.log("t", JSON.stringify(t, null, 2));
 
-      // const newList = this.$store.state.results.filter(
-      //   (item) => item.id !== this.$store.state.selectedResultsItem.id
-      // );
-
-      // this.SET_STATE({
-      //   records: newList || [],
-      // });
+    
 
       this.SET_STATE({
         results: t || [],

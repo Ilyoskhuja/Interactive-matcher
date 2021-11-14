@@ -28,9 +28,10 @@ export default {
   },
   computed: {
     recordings() {
+      const searchrg=new RegExp(this.search,'i');
       return this.$store.state.results.filter((item) =>
-        [item.isrc, item.artist, item.title].find((el) =>
-          el && ~el.indexOf(this.search)
+        [item.isrc, item.artist, item.title].some((el) =>
+          el && el.toLowerCase().match(searchrg)
         )
       );
     },
@@ -58,6 +59,14 @@ export default {
     //   console.log("search result:",results)
     //   this.$store.state.results = results
     // }) }, config.debouncers.default)
+
+      // const newList = this.$store.state.results.filter(
+      //   (item) => item.id !== this.$store.state.selectedResultsItem.id
+      // );
+
+      // this.SET_STATE({
+      //   records: newList || [],
+      // });
   },
 };
 </script>
