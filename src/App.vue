@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <Header/>
+    <Header />
     <!-- <Main msg="Welcome to Your Vue.js App"/> -->
     <div class="container">
       <div class="row">
         <div class="col-md-5">
-          <Inputs/>
+          <Inputs />
         </div>
         <div class="col-md-2">
-          <Actions/>
+          <Actions />
         </div>
         <div class="col-md-5">
-          <Database/>
+          <Database />
         </div>
       </div>
     </div>
@@ -19,22 +19,22 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from "./components/Header.vue";
 // import Main from './components/Main.vue'
-import Inputs from './components/inputs/Inputs.vue'
-import Actions from './components/actions/Actions.vue'
-import Database from './components/database/Database.vue'
+import Inputs from "./components/inputs/Inputs.vue";
+import Actions from "./components/actions/Actions.vue";
+import Database from "./components/database/Database.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     // Main,
     Header,
     Inputs,
     Actions,
-    Database
-  }
-}
+    Database,
+  },
+};
 </script>
 
 <style>
